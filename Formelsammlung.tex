@@ -1,0 +1,414 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}  %westeuropäische Textcodierung
+\usepackage{lmodern}  %schöneres Schriftbild
+\usepackage[ngerman]{babel}  %Rechtschreibprüfung/Silbentrennung
+\usepackage{graphicx}  %Verwendung von Bildern
+%\usepackage{tabularx}  %Tabellenpaket
+%\usepackage[all]{nowidow} %Hurenkinder vermeiden
+\usepackage[style=ieee]{biblatex}  %erweiterte Bibtex-Version
+\usepackage{csquotes}  %Hilfsbibliothek zu Biblatex
+%\usepackage{amssymb}  %Sonderzeichen
+%\usepackage{pxfonts} %griechisches Alphabet
+%\usepackage{pdfpages} %Einbinden von PDFs
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{makecell} %Zeilenumbrüche in Tabellen
+
+%\usepackage{hyperref}  %Links einbinden (zuletzt aufrufen!)
+
+\addbibresource{Literatur.bib}
+
+\begin{document}
+
+
+\title{\textbf{{\Huge Formelsammlung}}}
+\author{Eike Osmers}
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\thispagestyle{empty}
+\setcounter{page}{0}
+\tableofcontents
+\newpage
+\setcounter{page}{1}
+
+\section{Darstellungskonvention}
+
+\begin{itemize}
+\item[] Skalare Variablen in \textit{Kursivschrift}: $x, y, z$
+\item[] Vektorielle Variablen mit einem Pfeil über der Variable: $\vec{a}$
+\item[] Variablen für Matrizen in \textbf{fetter Schrift}: $\mathbf{A}$
+\item[] Komplexe Variablen unterstrichen: 
+\end{itemize}
+
+\section{Vektoranalysis}
+
+\subsection{Vektoralgebra}
+
+\begin{table}[h]
+\centering
+%\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}>{\bfseries}lc@{}}
+\toprule
+
+\makecell[l]{Skalarprodukt \\ {\normalfont {\tiny \textit{$\varphi$ ist der kleinere von $\vec{A}$ und}}} \\ {\normalfont {\tiny \textit{$\vec{B}$ eingeschlossene Winkel.}}}}
+	& $\displaystyle\begin{aligned}
+		&\vec{A}\cdot\vec{B} = ||\vec{A}|| \cdot ||\vec{B}|| \cdot \cos \varphi \\
+		&{\scriptstyle\vec{A}\perp\vec{B}:\ \vec{A}\cdot\vec{B} = 0}
+	\end{aligned}$ \\ \\
+ 
+\makecell[l]{Kreuzprodukt \\ {\normalfont {\tiny \textit{$\varphi$ ist der kleinere von $\vec{A}$ und}}} \\ {\normalfont {\tiny \textit{$\vec{B}$ eingeschlossene Winkel.}}} \\ {\normalfont {\tiny \textit{$\vec{n}$ zeigt in Richtung der }}} \\ {\normalfont {\tiny \textit{Rechte-Hand-Regel.}}}}
+
+	& $\displaystyle\begin{aligned}
+		&\vec{A}\times\vec{B}= ||\vec{A}|| \cdot ||\vec{B}|| \cdot \sin \varphi \cdot \vec{n} \\
+		&{\scriptstyle\vec{A}\parallel\vec{B}:\ \vec{A}\times\vec{B} = \vec{0}}
+	\end{aligned}$ \\ \\
+	
+\makecell[l]{Richtungsvektor \\ {\normalfont {\tiny \textit{Zeigt von $\vec{A}$ auf $\vec{B}$.}}}}
+
+	& $\displaystyle\vec{r}=\vec{B}-\vec{A}$ \\ \\
+
+\bottomrule
+\end{tabular}
+%}
+\end{table}
+
+\newpage
+\subsection{Koordinatensysteme}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=13cm,keepaspectratio]{"Bilder/Koordinatensysteme"}
+	\label{pic:Koordinatensysteme}
+\end{figure}
+
+\begin{table}[h]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}>{\bfseries}lccc@{}}
+\toprule \\
+
+  & \textbf{Kartesische Koordinaten} & \textbf{Zylinderkoordinaten} & \textbf{Kugelkoordinaten} \\ \\
+  
+\midrule   \\
+                                        
+Parametrisierung
+	& $\displaystyle\begin{pmatrix}x \\ y \\ z \end{pmatrix}=\begin{pmatrix}x \\ y \\ z \end{pmatrix}$ 
+	
+	& $\displaystyle\begin{matrix} \begin{pmatrix}x \\ y \\ z \end{pmatrix}=\begin{pmatrix}\rho \cos (\varphi) \\ \rho \cos (\varphi) \\ z \end{pmatrix} \\ \\ \begin{pmatrix}\rho \\ \varphi \\ z \end{pmatrix}=\begin{pmatrix}\sqrt{x^2+y^2} \\ \operatorname{atan2}(\frac{y}{x}) \\ z \end{pmatrix} \end{matrix}$ 
+	
+	& $\displaystyle\begin{matrix} \begin{pmatrix}x \\ y \\ z \end{pmatrix}=\begin{pmatrix}r \cos (\varphi) \sin (\theta) \\ r \sin (\varphi) \sin (\theta) \\ r \sin (\theta) \end{pmatrix} \\ \\ \begin{pmatrix}r \\ \theta \\ \varphi \end{pmatrix}=\begin{pmatrix}\sqrt{x^2+y^2+z^2} \\ \arccos \frac{z}{\sqrt{x^2+y^2+z^2}} \\ \operatorname{atan2}\left(\frac{y}{x}\right) \end{pmatrix} \end{matrix}$ \\ \\
+
+Definitionsbereich                         
+	& $\displaystyle\begin{matrix} -\infty < x < \infty \\ -\infty < y < \infty \\ -\infty < z < \infty  \end{matrix} $ 
+	& $\displaystyle\begin{matrix} 0 \leq \rho < \infty \\ 0 \leq \varphi \leq 2\pi \\ -\infty < z < \infty  \end{matrix}$ 
+	& $\displaystyle\begin{matrix} 0 \leq r < \infty \\ 0 \leq \theta \leq \pi \\ 0 \leq \varphi \leq 2\pi \end{matrix} $ \\ \\
+
+Transformationsmatrix                      
+	& $\displaystyle\textbf{S}=\begin{bmatrix}1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix} $ 
+	& $\displaystyle\textbf{S}=\begin{bmatrix}\cos (\varphi) & -\sin (\varphi) & 0 \\ \sin (\varphi) & \cos (\varphi) & 0 \\ 0 & 0 & 1 \end{bmatrix} $ 
+	& $\displaystyle\textbf{S}=\begin{bmatrix}\cos (\varphi) \sin (\theta) & \cos (\varphi) \cos (\theta) & -\sin (\varphi) \\ \sin (\varphi) \sin (\theta) & \sin (\varphi) \cos (\theta) & \cos (\varphi) \\ \cos (\theta) & -\sin (\theta) & 0 \end{bmatrix} $ \\ \\
+
+inverse Transformationsmatrix              
+	& $\displaystyle\textbf{S}^{\textbf{-1}}=\begin{bmatrix}1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix} $ 
+	& $\displaystyle\textbf{S}^{\textbf{-1}}=\begin{bmatrix}\cos (\varphi) & \sin (\varphi) & 0 \\ -\sin (\varphi) & \cos (\varphi) & 0 \\ 0 & 0 & 1 \end{bmatrix} $ 
+	& $\displaystyle\textbf{S}^{\textbf{-1}}=\begin{bmatrix}\cos (\varphi) \sin (\theta) &  \sin (\varphi) \sin (\theta) & \cos (\theta) \\ \cos (\varphi) \cos (\theta) & \sin (\varphi) \cos (\theta) & -\sin (\theta) \\ -\sin (\varphi) & \cos (\varphi) & 0 \end{bmatrix} $ \\ \\
+
+Transformation von Vektoren                
+	& $\displaystyle\begin{pmatrix}a_x \\ a_y \\ a_z \end{pmatrix} = \begin{pmatrix}a_x \\ a_y \\ a_z \end{pmatrix}$ 
+	& $\displaystyle\begin{matrix} \begin{pmatrix}a_x \\ a_y \\ a_z \end{pmatrix} = \textbf{S} \cdot \begin{pmatrix}a_\rho \\ a_\varphi \\ a_z \end{pmatrix} \\ \\ \begin{pmatrix}a_\rho \\ a_\varphi \\ a_z \end{pmatrix} = \textbf{S}^{\textbf{-1}} \cdot \begin{pmatrix}a_x \\ a_y \\ a_z \end{pmatrix} \end{matrix}$ 
+	& $\displaystyle\begin{matrix} \begin{pmatrix}a_x \\ a_y \\ a_z \end{pmatrix} = \textbf{S} \cdot \begin{pmatrix}a_r \\ a_\theta \\ a_\varphi \end{pmatrix} \\ \\ \begin{pmatrix}a_r \\ a_\theta \\ a_\varphi \end{pmatrix} = \textbf{S}^{\textbf{-1}} \cdot \begin{pmatrix}a_x \\ a_y \\ a_z \end{pmatrix} \end{matrix}$ \\ \\
+
+\midrule \\ \\
+
+Einheitsvektoren in kart. Koordinaten      
+	&  
+	&  
+	&  \\ \\
+
+Bogenlängen-Element                        
+	& $\displaystyle\mathrm{d}s^2 = \mathrm{d}x^2 + \mathrm{d}y^2 + \mathrm{d}z^2$ 
+	& $\displaystyle\mathrm{d}s^2 = \mathrm{d}\rho^2 + \rho^2 \mathrm{d}\varphi^2 + \mathrm{d}z^2$ 
+	& $\displaystyle\mathrm{d}s^2 = \mathrm{d}r^2 + r^2 \mathrm{d}\theta^2 + r^2 \sin^2(\theta) \mathrm{d}\varphi^2$ \\ \\
+
+Linienelement entlang der Koordinatenlinie 
+	&  
+	&  
+	&  \\ \\
+
+Flächenelement der Koordinatenseitenfläche 
+	&  
+	&  
+	&  \\ \\
+
+Volumenelement                             
+	& $\displaystyle\mathrm{d}V = \mathrm{d}x\ \mathrm{d}y\ \mathrm{d}z$ 
+	& $\displaystyle\mathrm{d}V = \rho\, \mathrm{d}\rho\, \mathrm{d} \varphi\, \mathrm{d}z$ 
+	& $\displaystyle\mathrm{d}V = r^2\sin^2(\theta)\, \mathrm{d}r\, \mathrm{d}\theta\,\mathrm{d}\varphi$ \\ \\
+\bottomrule
+
+\end{tabular}
+}
+\label{tab:Koordinatensysteme}
+\end{table}
+
+\newpage
+\subsection{Differentialoperatoren} 
+
+\cite{divgradcurl}
+
+\begin{table}[h]
+\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}>{\bfseries}lccc@{}}
+\toprule \\
+
+& \textbf{Kartesische Koordinaten} & \textbf{Zylinderkoordinaten} & \textbf{Kugelkoordinaten} \\ \\
+  
+\midrule \\
+
+Nabla &  &  &  \\ \\
+
+Gradient 
+	& $\displaystyle\nabla a = \operatorname{grad}\ a = \begin{pmatrix}\frac{\partial a}{\partial x} \\ \frac{\partial a}{\partial y} \\ \frac{\partial a}{\partial z}\end{pmatrix}$ 
+	& $\displaystyle\nabla a = \operatorname{grad}\ a = \begin{pmatrix}\frac{\partial a}{\partial \rho} \\ \frac{1}{\rho}\frac{\partial a}{\partial \theta} \\ \frac{\partial a}{\partial z}\end{pmatrix}$ 
+	& $\displaystyle\nabla a = \operatorname{grad}\ a = \begin{pmatrix}\frac{\partial a}{\partial r} \\ \frac{1}{r \sin (\varphi)}\frac{\partial a}{\partial \theta} \\ \frac{1}{r}\frac{\partial a}{\partial \varphi}\end{pmatrix}$ \\ \\
+
+
+Divergenz $\displaystyle\mathbb{R}^3 \rightarrow \mathbb{R}$ 
+
+	& $\displaystyle\begin{aligned}
+		&\nabla \cdot \vec{a} =  \operatorname{div}\ \vec{a} = \\ 
+		&\frac{\partial a_x}{\partial x} + \frac{\partial a_y}{\partial y} + \frac{\partial a_z}{\partial z}
+		\end{aligned}$ 
+	
+	& $\displaystyle\begin{aligned}
+		&\nabla \cdot \vec{a} =  \operatorname{div}\ \vec{a} = \\
+		& \frac{1}{\rho}\frac{\partial}{\partial \rho} (\rho a_\rho) + \frac{1}{\rho} \frac{\partial a_\theta}{\partial \theta} + \frac{\partial a_z}{\partial z}
+	\end{aligned}$ 
+	
+	& $\displaystyle\begin{aligned} 
+		&\nabla \cdot \vec{a} = \operatorname{div}\ \vec{a} =   \\
+		&\frac{1}{r^2}\frac{\partial}{\partial r} (r^2 a_r) + \frac{1}{r \sin (\varphi)}\frac{\partial a_\theta}{\partial \theta} + \frac{1}{r \sin (\varphi)}\frac{\partial}{\partial \varphi} \left(\sin (\varphi\right) a_\varphi) 
+	\end{aligned}$ \\ \\
+
+
+Rotation $\displaystyle\mathbb{R}^3 \rightarrow \mathbb{R}^3$ 
+
+	& $\displaystyle\begin{aligned} 
+		&\nabla \times \vec{a} = \operatorname{rot}\ \vec{a} = \\ 
+		&\begin{pmatrix} \frac{\partial a_z}{\partial y} - \frac{\partial a_y}{\partial z} \\ \frac{\partial a_x}{\partial z} - \frac{\partial a_z}{\partial x} \\ \frac{\partial a_y}{\partial x} - \frac{\partial a_x}{\partial y} \end{pmatrix} 
+	\end{aligned}$ 
+	
+	& $\displaystyle\begin{aligned} 
+		&\nabla \times \vec{a} = \operatorname{rot}\ \vec{a} = \\
+		&\begin{pmatrix} \frac{1}{\rho} \frac{\partial a_z}{\partial \theta} - \frac{\partial a_\theta}{\partial z} \\ \frac{\partial a_\rho}{\partial z} - \frac{\partial a_z}{\partial \rho} \\ \frac{1}{\rho} \frac{\partial}{\partial \rho} (\rho a_\theta) - \frac{1}{\rho} \frac{\partial a_\rho}{\partial \theta} \end{pmatrix}
+	\end{aligned}$ 
+	
+	& $\displaystyle\begin{aligned} 
+		&\nabla \times \vec{a} = \operatorname{rot}\ \vec{a} = \\ 
+		&\begin{pmatrix} \frac{1}{r \sin (\varphi)} \frac{\partial}{\partial \varphi} (\sin (\varphi) a_\theta) - \frac{1}{r \sin (\varphi)} \frac{\partial a_\varphi}{\partial \theta} \\ \frac{1}{r} \frac{\partial}{\partial r} (r a_\varphi) - \frac{1}{r} \frac{\partial a_r}{\partial \varphi} \\ \frac{1}{r \sin (\varphi)} \frac{\partial a_r}{\partial \theta} - \frac{1}{r} \frac{\partial}{\partial r} (r a_\theta) \end{pmatrix}
+	\end{aligned}$ \\ \\
+
+\bottomrule
+\label{tab:divgradcurl}
+\end{tabular}
+}
+\end{table}
+
+\subsection{Differential- und Integrationsregeln}
+
+(Wie löst man Kurven- und Oberflächenintegrale)\\
+(Satz von Green, Stokes, usw.?)
+
+\section{Komplexe Funktionen}
+
+\section{Lineare Algebra}
+
+\subsection{Basiswechsel}
+
+\newpage
+\section{Signale und Systeme}
+
+\subsection{Kontinuierliche Signale}
+
+\begin{table}[h]
+\centering
+%\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}>{\bfseries}lc@{}}
+\toprule
+
+\makecell[l]{Energie eines Signals \\ {\normalfont {\tiny Energiesignal:}} \\ {\normalfont {\tiny \textit{endl. Energie, keine Leistung}}}}
+	&$\displaystyle E_x = \int_{\vec{x}_1}^{\vec{x}_2} |x(t)|^2\,\mathrm{d}t$ \\ \\
+	
+\makecell[l]{(mittlere) Leistung eines Signals \\ {\normalfont {\tiny Leistungssignal:}} \\ {\normalfont {\tiny \textit{endl. Leistung, unendl. Energie}}}}
+	& $\displaystyle P_x = \lim_{T\rightarrow \infty} \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} |x(t)|^2\,\mathrm{d}t$ \\ \\
+	
+
+\bottomrule
+\end{tabular}
+%}
+\end{table}
+
+\newpage
+\subsubsection{Fourier-Transformation}
+
+\begin{table}[h]
+\centering
+%\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}>{\bfseries}lc@{}}
+\toprule
+
+\makecell[l]{Relle Fourierreihe \\ {\normalfont {\tiny \textit{einer $T$-periodischen Funktion}}} \\ {\normalfont {\tiny i.d.R.: $T=2\pi$}}} 
+
+	&$\begin{aligned}
+		f(t) & = a_0 + \sum_{k=1}^\infty \left( a_k \cos \left( \frac{2\pi kt}{T} \right) + b_k \sin \left(\frac{2\pi kt}{T}\right) \right) \\
+		a_0  & = \frac{1}{T} \int_0^{T} f(t)\,\mathrm{d}t \\
+		a_k & =  \frac{2}{T} \int_0^{T} f(t) \cos \left( \frac{2\pi kt}{T} \right)\,\mathrm{d}t \\
+		b_k & =  \frac{2}{T} \int_0^{T} f(t) \sin\left( \frac{2\pi kt}{T} \right)\,\mathrm{d}t
+	\end{aligned}$ \\ \\
+	
+Symmetrieeigenschaften 
+	& $\begin{aligned}
+		a_k & =  0\Leftrightarrow f(t)\ \text{ungerade} \\
+		b_k & =  0\Leftrightarrow f(t)\ \text{gerade}
+	\end{aligned}$\\ \\
+	
+\makecell[l]{Komplexe Fourierreihe \\ {\normalfont {\tiny \textit{einer $T$-periodischen Funktion}}} \\ {\normalfont {\tiny i.d.R.: $T=2\pi$}}} 
+
+	&$\begin{aligned}
+		f(t) & = \sum_{k=1}^\infty \left( c_k\, \mathrm{e}^{\frac{\mathrm{j}2\pi kt}{T}} \right) \\
+		c_k & = \frac{1}{T} \int_0^{T} f(t) \, \mathrm{e}^{-\frac{\mathrm{j}2\pi kt}{T}}\,\mathrm{d}t \\
+	\end{aligned}$ \\ \\
+
+\bottomrule
+\end{tabular}
+%}
+\end{table}
+
+\subsubsection{Laplace-Transformation}
+
+\newpage
+\subsection{Zeitdiskrete Signale}
+
+\begin{table}[h]
+\centering
+%\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}>{\bfseries}lc@{}}
+\toprule
+
+Länge eines Signals
+	& $\displaystyle N = N_2 - N_1 + 1 $ \\ \\
+	
+Faltungssumme
+	& $\displaystyle \begin{aligned}
+		 y[n] = & \sum_{k=-\infty}^\infty x[k] h[h-k] \\
+		 = & \sum_{k=-\infty}^\infty x[n-k] h[k]
+	\end{aligned}$ \\ \\
+
+\makecell[l]{Zirkulare Zeitumkehr \\ {\normalfont {\tiny \textit{entlang eines Kreises mit Umfang $N-1$}}}}
+ 
+	& $y[n] = x\left[ -n \operatorname{modulo} (N) \right]  $ \\ \\
+	
+Zirkulare Verschiebung
+	& $y[n] = x\left[ (n-n_0) \operatorname{modulo} (N) \right] $ \\ \\
+	
+
+\bottomrule
+\end{tabular}
+%}
+\end{table}
+
+\subsubsection{z-Transformation}
+
+\subsection{Zeit- \& Wertediskrete Signale}
+
+\section{Elektrische Netzwerke}
+
+\newpage
+\section{Klassische Elektrodynamik}
+
+\cite{Georg.Felder}
+\cite{Marinescu}
+
+\subsection{Elektrostatik}
+
+\begin{table}[h]
+\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}>{\bfseries}lcc@{}}
+
+\toprule
+
+ & \textbf{Skalare Größe} & \textbf{Vektorielle Größe} \\
+
+\midrule
+
+\makecell[l]{Coulomb'sches Kraftgesetz \\ {\normalfont {\tiny Kraftvektoren zweier Ladungen}} \\ {\normalfont {\tiny zeigen von einander weg.}} \\ {\normalfont {\tiny $n>2$: Superposition}}}
+	& $\begin{aligned}
+		F_C = & \frac{1}{4\pi \varepsilon_0}\cdot\frac{q_1 q_2}{r^2} \\
+		= & -\frac{\partial E_C}{\partial r} 
+	\end{aligned}$
+	 & $\vec{F}_{C_{12}} = \frac{q_1 q_2}{4 \pi \varepsilon_0}\cdot\frac{\vec{x}_2 - \vec{x}_1}{||\vec{x}_2 - \vec{x}_1||^3}$\\ \\
+	 
+\makecell[l]{Elektrische Feldstärke \\ $[\vec{E}] = \frac{V}{m}$}
+	& 
+	& $\begin{aligned}
+		\vec{E}(\vec{x}) = & -\operatorname{grad}(\varphi_e) \\
+		= & \frac{\vec{F}_{C_{12}}}{q_2} = \frac{q_1}{4 \pi \varepsilon_0}\cdot\frac{\vec{x} - \vec{x}_1}{||\vec{x} - \vec{x}_1||^3}
+	\end{aligned}$\\ \\
+	
+\makecell[l]{Elektrische Potential(feld) \\ $[\varphi_e] = V$} \\{\normalfont {\tiny Gleiches Potential auf Äquipotentialflächen}}
+	& $\varphi_e(\vec{x}) = \frac{q_1}{4 \pi \varepsilon_0}\cdot\frac{1}{||\vec{x} - \vec{x}_1||}$
+	& \\ \\
+	
+\makecell[l]{Elektrische Spannung \\ $[U] = V$}
+	& $\begin{aligned}
+		U_{12} = & \varphi_e(\vec{x}_1) - \varphi_e(\vec{x}_2) \\
+		= & \int_{\vec{x}_1}^{\vec{x}_2} \vec{E}\, d\vec{s}
+	\end{aligned}$
+	& \\ \\
+	 
+\midrule \\ \\
+	
+\makecell[l]{Linienladungsdichte \\ $[\lambda] = \frac{C}{m}$}
+	& $\begin{aligned}
+		\lambda = & \frac{dq_e}{ds} \\
+		q_e = & \int \lambda\,ds
+	\end{aligned}$ \\ \\
+	
+\makecell[l]{Flächenladungsdichte \\ $[\sigma] = \frac{C}{m^2}$}
+	& $\begin{aligned}
+		\sigma = & \frac{dq_e}{dA} \\
+		q_e = & \iint \sigma\,dA
+	\end{aligned}$ \\ \\
+	
+\makecell[l]{Volumenladungsdichte \\ $[\rho] = \frac{C}{m^3}$}
+	& $\begin{aligned}
+		\rho = & \frac{dq_e}{dV} \\
+		q_e = & \iiint \rho\,dV
+	\end{aligned}$ \\ \\
+
+\bottomrule
+
+\label{tab:Elektrostatik}
+\end{tabular}
+}
+\end{table}
+
+\newpage
+\section{Elektronik}
+
+\subsection{Operationsverstärker}
+
+\section{Hochfrequenztechnik}
+
+\section{Fehlerrechnung}
+
+\newpage
+\printbibliography
+
+\end{document}
