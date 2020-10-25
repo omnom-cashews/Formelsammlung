@@ -17,6 +17,8 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{makecell} %Zeilenumbrüche in Tabellen
+\usepackage{multirow}
+\usepackage{trfsigns} % Transformation Symbol o---o \laplace and \Laplace
 
 %\usepackage{hyperref}  %Links einbinden (zuletzt aufrufen!)
 
@@ -46,6 +48,7 @@
 \item[] Komplexe Variablen unterstrichen: 
 \end{itemize}
 
+\newpage
 \section{Vektoranalysis}
 
 \subsection{Vektoralgebra}
@@ -220,10 +223,27 @@ Rotation $\displaystyle\mathbb{R}^3 \rightarrow \mathbb{R}^3$
 }
 \end{table}
 
-\subsection{Differential- und Integrationsregeln}
+\subsection{Integralsätze}
+
+\begin{table}[h]
+%\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}>{\bfseries}lccc@{}}
+\toprule \\
+
+\makecell[l]{Stokes \\ {\normalfont {\tiny \textit{$\partial A$ ist der Rand der Fläche $A$}}}}
+	& $\displaystyle \oint_{\partial A} \vec{F}\, \mathrm{d}\vec{x} = \iint_A (\nabla \times \vec{F}) \cdot \mathrm{d}\vec{A}$ \\
+
+\bottomrule
+\label{tab:divgradcurl}
+\end{tabular}
+%}
+\end{table}
+
+(Satz von Green, usw.?)
+
+\subsection{Was noch?}
 
 (Wie löst man Kurven- und Oberflächenintegrale)\\
-(Satz von Green, Stokes, usw.?)
 
 \section{Komplexe Funktionen}
 
@@ -248,6 +268,8 @@ Rotation $\displaystyle\mathbb{R}^3 \rightarrow \mathbb{R}^3$
 \makecell[l]{(mittlere) Leistung eines Signals \\ {\normalfont {\tiny Leistungssignal:}} \\ {\normalfont {\tiny \textit{endl. Leistung, unendl. Energie}}}}
 	& $\displaystyle P_x = \lim_{T\rightarrow \infty} \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} |x(t)|^2\,\mathrm{d}t$ \\ \\
 	
+\midrule
+	
 
 \bottomrule
 \end{tabular}
@@ -257,9 +279,9 @@ Rotation $\displaystyle\mathbb{R}^3 \rightarrow \mathbb{R}^3$
 \newpage
 \subsubsection{Fourier-Transformation}
 
-\begin{table}[h]
+\begin{table}[h!]
 \centering
-%\resizebox{\textwidth}{!}{
+\resizebox{\textwidth}{!}{
 \begin{tabular}{@{}>{\bfseries}lc@{}}
 \toprule
 
@@ -284,13 +306,94 @@ Symmetrieeigenschaften
 		f(t) & = \sum_{k=1}^\infty \left( c_k\, \mathrm{e}^{\frac{\mathrm{j}2\pi kt}{T}} \right) \\
 		c_k & = \frac{1}{T} \int_0^{T} f(t) \, \mathrm{e}^{-\frac{\mathrm{j}2\pi kt}{T}}\,\mathrm{d}t \\
 	\end{aligned}$ \\ \\
+	
+\midrule \\
+
+Fourier-Transformation
+	& $\displaystyle F(\mathrm{j}\omega) =\mathcal{F}\{f(t\} = \int_{-\infty}^{\infty} f(t)\cdot \mathrm{e}^{-\mathrm{j}\omega t}\,\mathrm{d}t$ \\ \\
+	
+inverse Fourier-Transformation
+	& $\displaystyle f(t) = \mathcal{F}^{-1}\{F(\mathrm{j}\omega)\} = \frac{1}{2\pi} \int_{-\infty}^\infty F(\mathrm{j}\omega) \cdot \mathrm{e}^{\mathrm{j}\omega t}\,\mathrm{d}\omega$ \\ \\ 
+	
+Eigenschaften
+	&$\displaystyle \begin{aligned}
+		f(t) & \text{ reell:}\  \Re\{F(\mathrm{j}\omega)\} \text{ gerade}, \Im\{F(\mathrm{j}\omega)\} \text{ ungerade} \\
+		f(t) & \text{ gerade:}\  \Im\{F(\mathrm{j}\omega)\} = 0 \\
+		f(t) & \text{ ungerade:}\  \Re\{F(\mathrm{j}\omega)\} = 0
+	\end{aligned}$ \\ \\
+
+\makecell[l]{Konvergenzbedingung \\ {\normalfont {\tiny \textit{$f(t)$ muss mind. quadratintegrierbar sein.}}}} 
+	& $\displaystyle \int_{-\infty}^\infty |f(t)|^2\,\mathrm{d}t < \infty$ \\ \\
+	
+Ähnlichkeitssatz
+	& $\displaystyle f(bt)\ \laplace\ \frac{1}{\vert b \vert} F\left(\frac{\mathrm{j}\omega}{b}\right)$\\ \\
+	
+\makecell[l]{Verschiebungssatz \\ {\normalfont {\tiny \textit{Zeitverschiebung im Zeitbereich}}} \\ {\normalfont {\tiny \textit{Phasenverschiebung im Frequenzbereich}}}}	
+	& $\displaystyle f(t-t_0)\ \laplace\ \mathrm{e}^{-\mathrm{j}\omega t_0} F(\mathrm{j}\omega)$ \\ \\
+	
+\makecell[l]{Modulationssatz \\ {\normalfont {\tiny \textit{Multiplikation mit harm. Schwingung}}} \\ {\normalfont {\tiny \textit{Verschiebung im Frequenzbereich}}}}	
+	& $\displaystyle \mathrm{e}^{\mathrm{j}\omega_0 t}f(t)\ \laplace\ F\left(\mathrm{j}(\omega - \omega_0)\right)$ \\ \\
+	
+Differentiationssatz
+	& $\displaystyle \frac{d^n f(t)}{dt^n}\ \laplace\ (\mathrm{j}\omega)^n F(\mathrm{j}\omega)$ \\ \\
+
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\newpage
+\subsubsection{Laplace-Transformation}
+
+\begin{table}[h!]
+\centering
+%\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}>{\bfseries}lc@{}}
+\toprule
+
+\makecell[l]{komplexe Frequenz \\ {\normalfont {\tiny \textit{$\sigma$: Dämpfung/Verstärkung}}} \\ {\normalfont {\tiny \textit{$\omega$: Frequenz}}}}
+	& $\displaystyle s = \sigma + \mathrm{j}\omega$ \\ \\
+	
+Einseitige Laplace-Transformation
+	& $\displaystyle F(s) = \mathcal{L}\{f(t)\} = \int_{0}^\infty f(t)\, \mathrm{e}^{-st}\, \mathrm{d}t$ \\ \\
+	
+inverse Laplace-Transformation
+	& $\displaystyle \begin{aligned}
+		f(t) = \mathcal{L}^{-1} \{F(s)\} = \frac{1}{\mathrm{j}2\pi} \int_{c-\mathrm{j}\infty}^{c+\mathrm{j}\infty} F(s)\, \mathrm{e}^{st}\, \mathrm{d}s \\
+		\\
+		\text{{\small Alternativ: Rücktransformation}} \\ \text{{\small mittels Korrespondenz-Tabelle}} \\ \text{{\tiny ggf. Polydivision oder Partialbruchzerlegung notwendig}}
+	\end{aligned}$ \\ \\
+	
+Konvergenzbedingung
+	& $\displaystyle \int_{-\infty}^\infty |f(t)\, \mathrm{e}^{-st}|^2\,\mathrm{d}t < \infty$ \\ \\
+	
+\midrule \\
+	
+Verschiebungssatz
+	& $\displaystyle f(t-t_0)\ \laplace\ \mathrm{e}^{-st_0} F(s)$ \\ \\
+	
+Dämpfungssatz
+	& $\displaystyle\mathrm{e}^{bt} f(t)\ \laplace\ F(s-b)$ \\ \\
+	
+Integrationssatz
+	& $\displaystyle\int_0^t f(\tau)\,\mathrm{d}\tau\ \laplace\ \frac{1}{s} F(s)$ \\ \\
+	
+Differentiationssatz
+	& $\displaystyle\frac{\mathrm{d}^n f(t)}{\mathrm{d}t^n}\ \laplace\ s^n F(s) - \sum_{k=0}^{n-1} s^{n-k-1}\ \frac{\mathrm{d}^k f(0)}{\mathrm{d}t^k}$ \\ \\
+	
+Multiplikationssatz
+	& $\displaystyle t^k f(t)\ \laplace\ (-1)^k\ \frac{\mathrm{d}^k F(s)}{\mathrm{d}s^k}$ \\ \\
+	
+Anfangswertsatz
+	& $\displaystyle \lim_{t \rightarrow 0} f(t) = \lim_{s \rightarrow \infty} s F(s)$ \\ \\
+	
+Endwertsatz
+	& $\displaystyle \lim_{t \rightarrow \infty} f(t) = \lim_{s \rightarrow 0} s F(s)$ \\ \\
 
 \bottomrule
 \end{tabular}
 %}
 \end{table}
-
-\subsubsection{Laplace-Transformation}
 
 \newpage
 \subsection{Zeitdiskrete Signale}
@@ -312,10 +415,10 @@ Faltungssumme
 
 \makecell[l]{Zirkulare Zeitumkehr \\ {\normalfont {\tiny \textit{entlang eines Kreises mit Umfang $N-1$}}}}
  
-	& $y[n] = x\left[ -n \operatorname{modulo} (N) \right]  $ \\ \\
+	& $y[n] = x\left[ -n \operatorname{mod} N \right]  $ \\ \\
 	
 Zirkulare Verschiebung
-	& $y[n] = x\left[ (n-n_0) \operatorname{modulo} (N) \right] $ \\ \\
+	& $y[n] = x\left[ (n-n_0) \operatorname{mod} N \right] $ \\ \\
 	
 
 \bottomrule
@@ -324,6 +427,39 @@ Zirkulare Verschiebung
 \end{table}
 
 \subsubsection{z-Transformation}
+
+\begin{table}[h!]
+\centering
+%\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}>{\bfseries}lc@{}}
+\toprule
+
+\makecell[l]{z-Transformation \\ {\normalfont {\tiny \textit{Geometr. Reihe hilft oft}}}}
+	& $\displaystyle X(z) = \mathcal{Z} \{x[n]\}= \sum_{n=0}^\infty x[n]\, z^{-n}$ \\ \\
+
+\makecell[l]{inverse z-Transformation \\ {\normalfont {\tiny \textit{$C$ muss um den Ursprung und}}} \\ {\normalfont {\tiny \textit{im Konvergenzgebiet von $X(z)$ liegen.}}}}
+	& $\displaystyle x[n] = \mathcal{Z}^{-1} \{X(z)\} = \frac{1}{\mathrm{j}2\pi} \oint_C X(z)\ z^{n-1}$ \\ \\
+	
+\midrule \\
+
+Dämpfungssatz
+	& $\displaystyle a^n\, x[n]\ \laplace\ X\left(\frac{z}{a}\right)$ \\ \\
+	
+Multiplikationssatz
+	& $\displaystyle nx[n]\ \laplace\ -z\ \frac{\mathrm{d}X(z)}{\mathrm{d}z}$ \\ \\
+	
+Anfangswertsatz
+	& $\displaystyle \lim_{n \rightarrow 0} x[n]\ \laplace\ \lim_{z \rightarrow \infty} X(z)$ \\ \\
+	
+Endwertsatz
+	& $\displaystyle \lim_{n \rightarrow \infty} x[n]\ \laplace\ \lim_{z \rightarrow 1} (z-1)X(z)$ \\ \\
+
+\bottomrule
+\end{tabular}
+%}
+\end{table}
+
+to-do: Stabilität der z-Transformation
 
 \subsection{Zeit- \& Wertediskrete Signale}
 
@@ -335,62 +471,63 @@ Zirkulare Verschiebung
 \cite{Georg.Felder}
 \cite{Marinescu}
 
-\subsection{Elektrostatik}
-
 \begin{table}[h]
 \resizebox{\textwidth}{!}{
-\begin{tabular}{@{}>{\bfseries}lcc@{}}
+\begin{tabular}{@{}>{\bfseries}lccc@{}}
 
 \toprule
 
- & \textbf{Skalare Größe} & \textbf{Vektorielle Größe} \\
+ & \textbf{Skalare Größe} &\multicolumn{2}{c}{\textbf{Vektorielle Größe}}  \\
+ 
+ & & \textbf{Differentielle Form} & \textbf{Integrale Form} \\
 
 \midrule
 
 \makecell[l]{Coulomb'sches Kraftgesetz \\ {\normalfont {\tiny Kraftvektoren zweier Ladungen}} \\ {\normalfont {\tiny zeigen von einander weg.}} \\ {\normalfont {\tiny $n>2$: Superposition}}}
-	& $\begin{aligned}
-		F_C = & \frac{1}{4\pi \varepsilon_0}\cdot\frac{q_1 q_2}{r^2} \\
-		= & -\frac{\partial E_C}{\partial r} 
-	\end{aligned}$
-	 & $\vec{F}_{C_{12}} = \frac{q_1 q_2}{4 \pi \varepsilon_0}\cdot\frac{\vec{x}_2 - \vec{x}_1}{||\vec{x}_2 - \vec{x}_1||^3}$\\ \\
+	& $\displaystyle F_C =  \frac{1}{4\pi \varepsilon_0}\cdot\frac{q_1 q_2}{r^2}$
+	&
+	 & $\displaystyle\vec{F}_{C_{12}} = \frac{q_1 q_2}{4 \pi \varepsilon_0}\cdot\frac{\vec{x}_2 - \vec{x}_1}{||\vec{x}_2 - \vec{x}_1||^3}$\\ \\
 	 
-\makecell[l]{Elektrische Feldstärke \\ $[\vec{E}] = \frac{V}{m}$}
+\makecell[l]{Elektrische Feldstärke \\ $\displaystyle\left[\vec{E}\right] = \frac{V}{m}$}
 	& 
-	& $\begin{aligned}
-		\vec{E}(\vec{x}) = & -\operatorname{grad}(\varphi_e) \\
-		= & \frac{\vec{F}_{C_{12}}}{q_2} = \frac{q_1}{4 \pi \varepsilon_0}\cdot\frac{\vec{x} - \vec{x}_1}{||\vec{x} - \vec{x}_1||^3}
-	\end{aligned}$\\ \\
+	& $\displaystyle \vec{E}(\vec{x}) =  -\operatorname{grad}(\varphi_e)$
+	& $\displaystyle \vec{E}(\vec{x}) =  \frac{\vec{F}_{C_{12}}}{q_2} = \frac{q_1}{4 \pi \varepsilon_0}\cdot\frac{\vec{x} - \vec{x}_1}{||\vec{x} - \vec{x}_1||^3}$\\ \\
 	
-\makecell[l]{Elektrische Potential(feld) \\ $[\varphi_e] = V$} \\{\normalfont {\tiny Gleiches Potential auf Äquipotentialflächen}}
-	& $\varphi_e(\vec{x}) = \frac{q_1}{4 \pi \varepsilon_0}\cdot\frac{1}{||\vec{x} - \vec{x}_1||}$
-	& \\ \\
+\makecell[l]{Elektrische Potential(feld) \\ $\displaystyle\left[\varphi_e\right] = V$} \\{\normalfont {\tiny Gleiches Potential auf Äquipotentialflächen}}
+	& $\displaystyle \varphi_e(\vec{x}) = \frac{q_1}{4 \pi \varepsilon_0}\cdot\frac{1}{||\vec{x} - \vec{x}_1||}$
+	& 
+	&\\ \\
 	
-\makecell[l]{Elektrische Spannung \\ $[U] = V$}
-	& $\begin{aligned}
-		U_{12} = & \varphi_e(\vec{x}_1) - \varphi_e(\vec{x}_2) \\
-		= & \int_{\vec{x}_1}^{\vec{x}_2} \vec{E}\, d\vec{s}
+\makecell[l]{Elektrische Spannung \\ $\displaystyle[U] = V$}
+	& $\displaystyle\begin{aligned}
+		U_{12} = & \varphi_e(\vec{x}_2) - \varphi_e(\vec{x}_1) \\
+		= & - \int_{\vec{x}_1}^{\vec{x}_2} \vec{E}\, d\vec{s}
 	\end{aligned}$
-	& \\ \\
+	& 
+	&\\ \\
 	 
 \midrule \\ \\
 	
 \makecell[l]{Linienladungsdichte \\ $[\lambda] = \frac{C}{m}$}
-	& $\begin{aligned}
+	& $\displaystyle\begin{aligned}
 		\lambda = & \frac{dq_e}{ds} \\
 		q_e = & \int \lambda\,ds
-	\end{aligned}$ \\ \\
+	\end{aligned}$ 
+	&\\ \\
 	
 \makecell[l]{Flächenladungsdichte \\ $[\sigma] = \frac{C}{m^2}$}
-	& $\begin{aligned}
+	& $\displaystyle\begin{aligned}
 		\sigma = & \frac{dq_e}{dA} \\
 		q_e = & \iint \sigma\,dA
-	\end{aligned}$ \\ \\
+	\end{aligned}$ 
+	&\\ \\
 	
 \makecell[l]{Volumenladungsdichte \\ $[\rho] = \frac{C}{m^3}$}
-	& $\begin{aligned}
+	& $\displaystyle\begin{aligned}
 		\rho = & \frac{dq_e}{dV} \\
 		q_e = & \iiint \rho\,dV
-	\end{aligned}$ \\ \\
+	\end{aligned}$ 
+	&\\ \\
 
 \bottomrule
 
