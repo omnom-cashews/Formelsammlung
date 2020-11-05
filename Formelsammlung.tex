@@ -19,8 +19,9 @@
 \usepackage{makecell} %Zeilenumbrüche in Tabellen
 \usepackage{multirow}
 \usepackage{trfsigns} % Transformation Symbol o---o \laplace and \Laplace
+\usepackage{esint}	%cyclic integrals
 
-%\usepackage{hyperref}  %Links einbinden (zuletzt aufrufen!)
+\usepackage{hyperref}  %Links einbinden (zuletzt aufrufen!)
 
 \addbibresource{Literatur.bib}
 
@@ -49,6 +50,21 @@
 \end{itemize}
 
 \newpage
+\section{Analysis}
+\begin{table}[h]
+\centering
+%\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}>{\bfseries}lc@{}}
+\toprule
+
+
+
+\bottomrule
+\end{tabular}
+%}
+\end{table}
+
+\newpage
 \section{Vektoranalysis}
 
 \subsection{Vektoralgebra}
@@ -73,8 +89,13 @@
 	\end{aligned}$ \\ \\
 	
 \makecell[l]{Richtungsvektor \\ {\normalfont {\tiny \textit{Zeigt von $\vec{A}$ auf $\vec{B}$.}}}}
-
 	& $\displaystyle\vec{r}=\vec{B}-\vec{A}$ \\ \\
+	
+Tangentenvektor
+	& $\displaystyle \frac{\partial \vec{x}}{\partial u}$ \\ \\
+
+\makecell[l]{Fächennormal \\ {\normalfont {\tiny \textit{Steht immer senkrecht auf der Fläche.}}}}
+	& $\displaystyle \vec{n} = \frac{\partial \vec{x}}{\partial u} \times \frac{\partial \vec{x}}{\partial v}$ \\
 
 \bottomrule
 \end{tabular}
@@ -174,12 +195,19 @@ Volumenelement
   
 \midrule \\
 
-Nabla &  &  &  \\ \\
+Nabla 
+	& $\displaystyle \nabla = \begin{pmatrix} \frac{\partial}{\partial x} \\ \frac{\partial}{\partial y} \\ \frac{\partial}{\partial z}
+\end{pmatrix} $
+	&  $\displaystyle \nabla = \begin{pmatrix} \frac{\partial}{\partial \rho} \\ \frac{1}{\rho}\frac{\partial}{\partial \phi} \\ \frac{\partial}{\partial z}
+\end{pmatrix} $
+	&  $\displaystyle \nabla = \begin{pmatrix} \frac{\partial}{\partial r} \\ \frac{1}{r}\frac{\partial}{\partial \theta} \\ \frac{1}{r \sin \theta}\frac{\partial}{\partial \varphi}
+\end{pmatrix} $\\ \\
 
-Gradient 
+
+\makecell[l]{Gradient \\ {\normalfont {\tiny \textit{(eines Skalarfeldes)}}}}
 	& $\displaystyle\nabla a = \operatorname{grad}\ a = \begin{pmatrix}\frac{\partial a}{\partial x} \\ \frac{\partial a}{\partial y} \\ \frac{\partial a}{\partial z}\end{pmatrix}$ 
 	& $\displaystyle\nabla a = \operatorname{grad}\ a = \begin{pmatrix}\frac{\partial a}{\partial \rho} \\ \frac{1}{\rho}\frac{\partial a}{\partial \theta} \\ \frac{\partial a}{\partial z}\end{pmatrix}$ 
-	& $\displaystyle\nabla a = \operatorname{grad}\ a = \begin{pmatrix}\frac{\partial a}{\partial r} \\ \frac{1}{r \sin (\varphi)}\frac{\partial a}{\partial \theta} \\ \frac{1}{r}\frac{\partial a}{\partial \varphi}\end{pmatrix}$ \\ \\
+	& $\displaystyle\nabla a = \operatorname{grad}\ a = \begin{pmatrix}\frac{\partial a}{\partial r} \\ \frac{1}{r}\frac{\partial a}{\partial \theta} \\ \frac{1}{r \sin (\theta)}\frac{\partial a}{\partial \varphi} \end{pmatrix}$ \\ \\
 
 
 Divergenz $\displaystyle\mathbb{R}^3 \rightarrow \mathbb{R}$ 
@@ -196,7 +224,7 @@ Divergenz $\displaystyle\mathbb{R}^3 \rightarrow \mathbb{R}$
 	
 	& $\displaystyle\begin{aligned} 
 		&\nabla \cdot \vec{a} = \operatorname{div}\ \vec{a} =   \\
-		&\frac{1}{r^2}\frac{\partial}{\partial r} (r^2 a_r) + \frac{1}{r \sin (\varphi)}\frac{\partial a_\theta}{\partial \theta} + \frac{1}{r \sin (\varphi)}\frac{\partial}{\partial \varphi} \left(\sin (\varphi\right) a_\varphi) 
+		&\frac{1}{r^2}\frac{\partial}{\partial r} (r^2 a_r) + \frac{1}{r \sin (\theta)}\frac{\partial}{\partial \theta} \left(\sin (\theta\right) a_\theta) + \frac{1}{r \sin (\theta)}\frac{\partial a_\varphi}{\partial \varphi}
 	\end{aligned}$ \\ \\
 
 
@@ -214,7 +242,7 @@ Rotation $\displaystyle\mathbb{R}^3 \rightarrow \mathbb{R}^3$
 	
 	& $\displaystyle\begin{aligned} 
 		&\nabla \times \vec{a} = \operatorname{rot}\ \vec{a} = \\ 
-		&\begin{pmatrix} \frac{1}{r \sin (\varphi)} \frac{\partial}{\partial \varphi} (\sin (\varphi) a_\theta) - \frac{1}{r \sin (\varphi)} \frac{\partial a_\varphi}{\partial \theta} \\ \frac{1}{r} \frac{\partial}{\partial r} (r a_\varphi) - \frac{1}{r} \frac{\partial a_r}{\partial \varphi} \\ \frac{1}{r \sin (\varphi)} \frac{\partial a_r}{\partial \theta} - \frac{1}{r} \frac{\partial}{\partial r} (r a_\theta) \end{pmatrix}
+		&\frac{1}{r}\begin{pmatrix} \frac{1}{\sin (\varphi)} \left( \frac{\partial}{\partial \varphi} (\sin (\varphi) a_\theta) -  \frac{\partial a_\varphi}{\partial \theta} \right) \\ \frac{\partial}{\partial r} (r a_\varphi) -  \frac{\partial a_r}{\partial \varphi} \\ \frac{1}{\sin (\varphi)} \frac{\partial a_r}{\partial \theta} -  \frac{\partial}{\partial r} (r a_\theta) \end{pmatrix}
 	\end{aligned}$ \\ \\
 
 \bottomrule
@@ -231,15 +259,16 @@ Rotation $\displaystyle\mathbb{R}^3 \rightarrow \mathbb{R}^3$
 \toprule \\
 
 \makecell[l]{Stokes \\ {\normalfont {\tiny \textit{$\partial A$ ist der Rand der Fläche $A$}}}}
-	& $\displaystyle \oint_{\partial A} \vec{F}\, \mathrm{d}\vec{x} = \iint_A (\nabla \times \vec{F}) \cdot \mathrm{d}\vec{A}$ \\
+	& $\displaystyle \oint_{\partial A} \vec{F}\, \mathrm{d}\vec{x} = \iint_A \nabla \times \vec{F}\, \mathrm{d}\vec{A}$ \\ \\
+	
+\makecell[l]{Gauß \\ {\normalfont {\tiny \textit{$\partial V$ ist die Oberfläche des Volumens $V$}}}}
+	& $\displaystyle \oint_{\partial V} \vec{F}\, \mathrm{d}\vec{A} = \iiint_V \nabla \cdot \vec{F}\, \mathrm{d}V$ \\
 
 \bottomrule
 \label{tab:divgradcurl}
 \end{tabular}
 %}
 \end{table}
-
-(Satz von Green, usw.?)
 
 \subsection{Was noch?}
 
@@ -420,43 +449,73 @@ Faltungssumme
 Zirkulare Verschiebung
 	& $y[n] = x\left[ (n-n_0) \operatorname{mod} N \right] $ \\ \\
 	
+\midrule \\
+
+\makecell[l]{Energie eines Signals \\ {\normalfont {\tiny Energiesignal:}} \\ {\normalfont {\tiny \textit{endl. Energie, keine Leistung}}}}
+	& $\displaystyle E_x = \sum_{n=-\infty}^{\infty} |x[n]|^2$ \\ \\
+	
+\makecell[l]{mittlere Leistung \\ einer periodischen Folge \\ {\normalfont {\tiny Leistungssignal:}} \\ {\normalfont {\tiny \textit{endl. Leistung, unendl. Energie}}}}
+	& $\displaystyle P_x = \frac{1}{N}\sum_{n=0}^{N-1} |x[n]|^2$ \\ \\
+	
+\makecell[l]{mittlere Leistung \\ einer aperiodischen Folge \\ {\normalfont {\tiny Leistungssignal:}} \\ {\normalfont {\tiny \textit{endl. Leistung, unendl. Energie}}}}
+	& $\displaystyle P_x = \lim_{k \rightarrow \infty} \frac{1}{2k+1}\sum_{n=-k}^{k} |x[n]|^2$ \\ \\
 
 \bottomrule
 \end{tabular}
 %}
 \end{table}
 
+\newpage
 \subsubsection{z-Transformation}
+
+Zur Angabe der z-Transformierten gehört immer die Angabe des Konvergenzgebietes (Region of Convergence, RoC), da es sonst keine eindeutige Umkehrung der z-Transformation gibt. \\
 
 \begin{table}[h!]
 \centering
-%\resizebox{\textwidth}{!}{
-\begin{tabular}{@{}>{\bfseries}lc@{}}
-\toprule
+\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}>{\bfseries}lcc@{}}
+\toprule \\
+
+ & \textbf{Transformation} & \textbf{Konvergenzgebiet} \\ \\
+ 
+ \midrule \\
 
 \makecell[l]{z-Transformation \\ {\normalfont {\tiny \textit{Geometr. Reihe hilft oft}}}}
-	& $\displaystyle X(z) = \mathcal{Z} \{x[n]\}= \sum_{n=0}^\infty x[n]\, z^{-n}$ \\ \\
+	& $\displaystyle X(z) = \mathcal{Z} \{x[n]\}= \sum_{n=-\infty}^\infty x[n]\, z^{-n}$ 
+	& $R_x$\\ \\
 
 \makecell[l]{inverse z-Transformation \\ {\normalfont {\tiny \textit{$C$ muss um den Ursprung und}}} \\ {\normalfont {\tiny \textit{im Konvergenzgebiet von $X(z)$ liegen.}}}}
-	& $\displaystyle x[n] = \mathcal{Z}^{-1} \{X(z)\} = \frac{1}{\mathrm{j}2\pi} \oint_C X(z)\ z^{n-1}$ \\ \\
+	& $\displaystyle x[n] = \mathcal{Z}^{-1} \{X(z)\} = \frac{1}{\mathrm{j}2\pi} \oint_C X(z)\ z^{n-1}\, \mathrm{d}z$ \\ \\
 	
 \midrule \\
 
+Zeitverschiebung
+	& $\displaystyle x[n-n_0]\ \laplace\ z^{-n_0}\, X(z)$ 
+	& {\scriptsize $R_x, \text{evtl. Änderung bei} z=0 \text{ und } z=\infty$}\\ \\
+	
+Zeitumkehr
+	& $\displaystyle x[-n] \laplace X\left(\frac{1}{z}\right)$ 
+	& $\displaystyle \frac{1}{Rx}$\\ \\
+
 Dämpfungssatz
-	& $\displaystyle a^n\, x[n]\ \laplace\ X\left(\frac{z}{a}\right)$ \\ \\
+	& $\displaystyle a^n\, x[n]\ \laplace\ X\left(\frac{z}{a}\right)$ 
+	& $|a| R_x$\\ \\
 	
 Multiplikationssatz
-	& $\displaystyle nx[n]\ \laplace\ -z\ \frac{\mathrm{d}X(z)}{\mathrm{d}z}$ \\ \\
+	& $\displaystyle nx[n]\ \laplace\ -z\ \frac{\mathrm{d}X(z)}{\mathrm{d}z}$ 
+	& {\scriptsize $R_x, \text{evtl. Änderung bei} z=0 \text{ und } z=\infty$} \\ \\
 	
 Anfangswertsatz
-	& $\displaystyle \lim_{n \rightarrow 0} x[n]\ \laplace\ \lim_{z \rightarrow \infty} X(z)$ \\ \\
+	& $\displaystyle \lim_{n \rightarrow 0} x[n]\ \laplace\ \lim_{z \rightarrow \infty} X(z)$ 
+	&\\ \\
 	
 Endwertsatz
-	& $\displaystyle \lim_{n \rightarrow \infty} x[n]\ \laplace\ \lim_{z \rightarrow 1} (z-1)X(z)$ \\ \\
+	& $\displaystyle \lim_{n \rightarrow \infty} x[n]\ \laplace\ \lim_{z \rightarrow 1} (z-1)X(z)$ 
+	&\\ \\
 
 \bottomrule
 \end{tabular}
-%}
+}
 \end{table}
 
 to-do: Stabilität der z-Transformation
@@ -464,6 +523,30 @@ to-do: Stabilität der z-Transformation
 \subsection{Zeit- \& Wertediskrete Signale}
 
 \section{Elektrische Netzwerke}
+
+Modified Node Analysis (PaBe Kochrezept im Ordner)
+
+\subsection{passive Bauelemente}
+
+Ersatzschaltbilder von R und C und L \\
+
+0. Ordnung R: R \\
+
+1. Ordnung R: L+R oder C||R \\
+
+2. Ordnung R: (R||C)+L oder (L+R)||C \\
+
+1. Ordnung C: C+R oder C||R \\
+
+Universal ESB C: Ls + Rs + (Rp || R(f) || C) \\
+
+1. Ordnung L: L + R \\
+
+Güte Reihen- und Parallelschwingkreis \\
+
+\subsection{Netzwerkparameter}
+
+siehe PaBe Kapitel 5
 
 \newpage
 \section{Klassische Elektrodynamik}
@@ -482,6 +565,14 @@ to-do: Stabilität der z-Transformation
  & & \textbf{Differentielle Form} & \textbf{Integrale Form} \\
 
 \midrule
+
+\multicolumn{4}{c}{\textbf{Maxwell Gleichungen}} \\
+
+
+
+\midrule
+
+\multicolumn{4}{c}{\textbf{Elektrostatik}} \\
 
 \makecell[l]{Coulomb'sches Kraftgesetz \\ {\normalfont {\tiny Kraftvektoren zweier Ladungen}} \\ {\normalfont {\tiny zeigen von einander weg.}} \\ {\normalfont {\tiny $n>2$: Superposition}}}
 	& $\displaystyle F_C =  \frac{1}{4\pi \varepsilon_0}\cdot\frac{q_1 q_2}{r^2}$
@@ -509,27 +600,23 @@ to-do: Stabilität der z-Transformation
 \midrule \\ \\
 	
 \makecell[l]{Linienladungsdichte \\ $[\lambda] = \frac{C}{m}$}
-	& $\displaystyle\begin{aligned}
-		\lambda = & \frac{dq_e}{ds} \\
-		q_e = & \int \lambda\,ds
-	\end{aligned}$ 
-	&\\ \\
+	& 
+	&$\displaystyle\lambda =  \frac{dq_e}{ds}$ 
+	& $\displaystyle q_e =  \int \lambda\,ds$ \\ \\
 	
 \makecell[l]{Flächenladungsdichte \\ $[\sigma] = \frac{C}{m^2}$}
-	& $\displaystyle\begin{aligned}
-		\sigma = & \frac{dq_e}{dA} \\
-		q_e = & \iint \sigma\,dA
-	\end{aligned}$ 
-	&\\ \\
+	& 
+	&$\displaystyle\sigma =  \frac{dq_e}{dA}$ 
+	&$\displaystyle q_e =  \iint \sigma\,dA$ \\ \\
 	
 \makecell[l]{Volumenladungsdichte \\ $[\rho] = \frac{C}{m^3}$}
-	& $\displaystyle\begin{aligned}
-		\rho = & \frac{dq_e}{dV} \\
-		q_e = & \iiint \rho\,dV
-	\end{aligned}$ 
-	&\\ \\
+	& 
+	& $\displaystyle\rho =  \frac{dq_e}{dV}$ 
+	& $\displaystyle q_e =  \iiint \rho\,dV$ \\ \\
 
 \bottomrule
+
+Maxwellgleichungen für verschiedene Anwendungsfälle (allgemein, Elektrostatik, quasistatisch, stationär & quasistationär (siehe PaBe Kap. 1), 
 
 \label{tab:Elektrostatik}
 \end{tabular}
@@ -538,6 +625,8 @@ to-do: Stabilität der z-Transformation
 
 \newpage
 \section{Elektronik}
+
+
 
 \subsection{Operationsverstärker}
 
